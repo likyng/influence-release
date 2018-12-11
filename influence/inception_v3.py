@@ -140,13 +140,13 @@ def InceptionV3(include_top=True,
             or invalid input shape.
     """
     if weights not in {'imagenet', None}:
-        raise ValueError('The `weights` argument should be either '
+        raise(ValueError('The `weights` argument should be either '
                          '`None` (random initialization) or `imagenet` '
-                         '(pre-training on ImageNet).')
+                         '(pre-training on ImageNet).'))
 
     if weights == 'imagenet' and include_top and classes != 1000:
-        raise ValueError('If using `weights` as imagenet with `include_top`'
-                         ' as true, `classes` should be 1000')
+        raise(ValueError('If using `weights` as imagenet with `include_top`'
+                         ' as true, `classes` should be 1000'))
 
     # Determine proper input shape
     input_shape = _obtain_input_shape(

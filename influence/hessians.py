@@ -37,7 +37,7 @@ def hessian_vector_product(ys, xs, v):
   # Validate the input
   length = len(xs)
   if len(v) != length:
-    raise ValueError("xs and v must have the same length.")
+    raise(ValueError("xs and v must have the same length."))
 
   # First backprop
   grads = gradients(ys, xs)
@@ -102,12 +102,12 @@ def hessians(ys, xs, name="hessians", colocate_gradients_with_ops=False,
     # Check dimensions
     ndims = x.get_shape().ndims
     if ndims is None:
-      raise ValueError('Cannot compute Hessian because the dimensionality of '
-                       'element number %d of `xs` cannot be determined' % i)
+      raise(ValueError('Cannot compute Hessian because the dimensionality of '
+                       'element number %d of `xs` cannot be determined' % i))
     elif ndims != 1:
-      raise ValueError('Computing hessians is currently only supported for '
+      raise(ValueError('Computing hessians is currently only supported for '
                        'one-dimensional tensors. Element number %d of `xs` has '
-                       '%d dimensions.' % (i, ndims))
+                       '%d dimensions.' % (i, ndims)))
     with ops.name_scope(name + '_first_derivative'):
       # Compute the partial derivatives of the input with respect to all 
       # elements of `x`

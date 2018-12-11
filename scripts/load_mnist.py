@@ -25,8 +25,8 @@ def extract_images(f):
   with gzip.GzipFile(fileobj=f) as bytestream:
     magic = _read32(bytestream)
     if magic != 2051:
-      raise ValueError('Invalid magic number %d in MNIST image file: %s' %
-                       (magic, f.name))
+      raise(ValueError('Invalid magic number %d in MNIST image file: %s' %
+                       (magic, f.name)))
     num_images = _read32(bytestream)
     rows = _read32(bytestream)
     cols = _read32(bytestream)
@@ -51,8 +51,8 @@ def extract_labels(f, one_hot=False, num_classes=10):
   with gzip.GzipFile(fileobj=f) as bytestream:
     magic = _read32(bytestream)
     if magic != 2049:
-      raise ValueError('Invalid magic number %d in MNIST label file: %s' %
-                       (magic, f.name))
+      raise(ValueError('Invalid magic number %d in MNIST label file: %s' %
+                       (magic, f.name)))
     num_items = _read32(bytestream)
     buf = bytestream.read(num_items)
     labels = np.frombuffer(buf, dtype=np.uint8)
@@ -91,9 +91,9 @@ def load_mnist(train_dir, validation_size=5000):
     test_labels = extract_labels(f)
 
   if not 0 <= validation_size <= len(train_images):
-    raise ValueError(
+    raise(ValueError(
         'Validation size should be between 0 and {}. Received: {}.'
-        .format(len(train_images), validation_size))
+        .format(len(train_images), validation_size)))
 
   validation_images = train_images[:validation_size]
   validation_labels = train_labels[:validation_size]

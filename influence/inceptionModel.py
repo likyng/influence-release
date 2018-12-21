@@ -26,6 +26,7 @@ from keras.layers import Flatten
 from keras.layers import AveragePooling2D
 from keras.utils.data_utils import get_file
 from keras import backend as K
+from keras.backend import int_shape
 
 
 class BinaryInceptionModel(GenericNeuralNet):
@@ -161,11 +162,14 @@ class BinaryInceptionModel(GenericNeuralNet):
 
     def inference(self, input):        
         reshaped_input = tf.reshape(input, [-1, self.img_side, self.img_side, self.num_channels])
-        self.inception_model = InceptionV3(include_top=False, weights='imagenet', input_tensor=reshaped_input)
+        #self.inception_model = InceptionV3(require_flatten=False, weights='imagenet', input_tensor=reshaped_input)
+        self.inception_model = InceptionV3(require_flatten=False, weights='imagenet', input_tensor=reshaped_input, pooling='avg')
         
         raw_inception_features = self.inception_model.output
 
-        pooled_inception_features = AveragePooling2D((8, 8), strides=(8, 8), name='avg_pool')(raw_inception_features)
+        #pooled_inception_features = AveragePooling2D((8, 8), strides=(8, 8), name='avg_pool')(raw_inception_features)
+        print(K.shape(pooled_inception_features.shape()
+        self.inception_model.summary()
         self.inception_features = Flatten(name='flatten')(pooled_inception_features)
 
 
